@@ -11,3 +11,15 @@ def selection_sort(l, reverse=False):
         temp = l[i]
         l[i] = l[min_idx]
         l[min_idx] = temp
+
+def bubble_sort(l):
+    for i in range(len(l)-1):
+        already_sorted = True
+        for j in range(len(l)-1-i):
+            if l[j] > l[j+1]:
+                temp = l[j]
+                l[j] = l[j+1]
+                l[j+1] = temp
+                already_sorted = False
+        if already_sorted:
+            return None
