@@ -69,7 +69,7 @@ class LinkedList:
         if start >= len(self)+1 or stop >= len(self)+1:
             raise IndexError(f"Index {start} : {stop} is out of range")
         
-        new_ll = LinkedList1()
+        new_ll = LinkedList()
         for i in range(start, stop, step):
             new_ll.append(data=self[i])
         
