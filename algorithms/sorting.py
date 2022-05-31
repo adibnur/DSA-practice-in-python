@@ -23,3 +23,13 @@ def bubble_sort(l):
                 already_sorted = False
         if already_sorted:
             return None
+
+def insertion_sort(l):
+    for i in range(len(l)):
+        for j in range(i, 0, -1):
+            if l[j] < l[j-1]:
+                temp = l[j]
+                l[j] = l[j-1]
+                l[j-1] = temp
+            else:
+                break
