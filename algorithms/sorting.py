@@ -1,3 +1,5 @@
+import random
+
 def selection_sort(l, reverse=False):
     for i in range(len(l)):
         min_idx = i
@@ -58,3 +60,31 @@ def merge_sort(l):
             rp += 1
 
     return None
+
+def quick_sort(l, start:int=0, end:int=None):
+    if end is None:
+        end = len(l)-1
+    
+    if end < start:
+        return None
+
+    # randomize partition element selection to minimize chance of worst case n^2
+    part_elem_idx = random.randint(start, end)
+    temp = l[end]
+    l[end] = l[part_elem_idx]
+    l[part_elem_idx] = temp
+    
+    part_elem = l[end]
+    part_idx = start
+    for i in range(start, end):
+        if l[i] <= part_elem:
+            temp = l[i]
+            l[i] = l[part_idx]
+            l[part_idx] = temp
+            part_idx += 1
+    temp = l[part_idx]
+    l[part_idx] = l[end]
+    l[end] = temp
+
+    quick_sort(l, start, part_idx-1)
+    quick_sort(l, part_idx+1, end)
