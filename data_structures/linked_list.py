@@ -34,7 +34,6 @@ class LinkedList:
             node_ = node_.next_node
         return length
 
-
     def append(self, data):
         if self.head is None:
             self.head = Node(data)
@@ -47,18 +46,34 @@ class LinkedList:
         return None
     
     def __getitem__(self, index):
-        if not isinstance(index, int):
-            raise TypeError(f"LinkedList index must be of type int, not {type(index).__name__}")
+        if not isinstance(index, int) and not isinstance(index, slice):
+            raise TypeError(f"LinkedList index must be of type int or slice, not {type(index).__name__}")
 
-        if index < 0: #not handling negative indexing for now
-            raise IndexError(f"Index {index} is out of range")
-        if index >= len(self):
-            raise IndexError(f"Index {index} is out of range")
-            
-        node_ = self.head
-        for i in range(index):
-            node_ = node_.next_node
-        return node_.data
+        if isinstance(index, int):
+            if index < 0: #not handling negative indexing for now
+                raise IndexError(f"Index {index} is out of range")
+            if index >= len(self):
+                raise IndexError(f"Index {index} is out of range")
+                
+            node_ = self.head
+            for i in range(index):
+                node_ = node_.next_node
+            return node_.data
+        
+        # index is slice
+        start = index.start if index.start is not None else 0
+        stop = index.stop if index.stop is not None else len(self)
+        step = index.step if index.step else 1
+        if start < 0 or stop < 0: #not handling negative indexing for now
+            raise IndexError(f"Index {start} : {stop} is out of range")
+        if start >= len(self)+1 or stop >= len(self)+1:
+            raise IndexError(f"Index {start} : {stop} is out of range")
+        
+        new_ll = LinkedList1()
+        for i in range(start, stop, step):
+            new_ll.append(data=self[i])
+        
+        return new_ll
 
     def __setitem__(self, index, data):
         if not isinstance(index, int):

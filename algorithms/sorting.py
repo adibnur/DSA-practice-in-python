@@ -33,3 +33,28 @@ def insertion_sort(l):
                 l[j-1] = temp
             else:
                 break
+
+def merge_sort(l):
+    if len(l)<2:
+        return None
+    left_l = l[ : int(len(l)/2)]
+    right_l = l[int(len(l)/2) : ]
+    merge_sort(left_l)
+    merge_sort(right_l)
+
+    lp, rp = 0, 0
+    while lp<len(left_l) or rp<len(right_l):
+        if lp==len(left_l):
+            l[lp+rp] = right_l[rp]
+            rp += 1
+        elif rp==len(right_l):
+            l[lp+rp] = left_l[lp]
+            lp += 1
+        elif left_l[lp] <= right_l[rp]:
+            l[lp+rp] = left_l[lp]
+            lp += 1
+        else:
+            l[lp+rp] = right_l[rp]
+            rp += 1
+
+    return None
